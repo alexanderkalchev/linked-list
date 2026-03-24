@@ -101,21 +101,27 @@ export default class LinkedList{
 
     insertAt(index, ...nums){
         if(index < 0 || index >= this.size()) throw new RangeError("Index out of range!");
-        let temp = this.#head;
+        let prev = null;
+        let next = this.#head;
         let count = 0;
-        while(count < index-1){
-            temp = temp.nextNode;
+        while(count < index){
+            prev = next;
+            next = next.nextNode;
             count++;
         }
 
-        let memory;
-
-        nums.forEach((num) => {
-            memory = temp.nextNode;
-            temp.nextNode = new Node(num);
-            temp = temp.nextNode;
-            temp.nextNode = memory;
-        })
+        nums.forEach(num => {
+            if(prev !== null){
+                prev.nextNode = new Node(num)
+                prev.nextNode.nextNode = next
+                next = prev.nextNode;
+            };
+            if(prev === null){
+                this.#head = new Node(num);
+                this.#head.nextNode = next;
+                next = this.#head;
+            }
+        });
     }
 
     removeAt(index){

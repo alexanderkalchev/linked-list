@@ -9,9 +9,10 @@ list.append(3);
 
 console.log(list.toString());
 
-list.insertAt(1, 10, 11);
+list.insertAt(2, 10, 11);
 
 console.log(list.toString());
 
-list.removeAt(0);
+list.removeAt(list.size()-1);
+
 console.log(list.toString());
